@@ -1,0 +1,48 @@
+﻿@helper ConvertDate(int unixDate)
+{
+    DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(unixDate);
+    string date = dt.ToShortDateString();
+    @date;
+}
+@helper PrintDate(int day)
+{
+    string strDate = day == 0 ? "Today" : day == 1 ? "Tomorrow" : DateTime.Now.AddDays(day).ToShortDateString();
+    @strDate
+}
+<div>
+    <h5>City: @Model.city.Name</h5>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th class="frc-td">Date</th>
+            <th class="frc-td">Pressure</th>
+            <th class="frc-td">Humidity</th>
+            <th class="frc-td">Temp morning</th>
+            <th class="frc-td">Temp day</th>
+            <th class="frc-td">Temp evening</th>
+            <th class="frc-td">Temp night</th>
+            <th class="frc-td">Wind speed</th>
+            <th class="frc-td">Description</th>
+            <th class="frc-td">Icon</th>
+        </tr>
+        @for (int i = 0; i < Model.cnt; i++)
+        {
+            var item = Model.list[i];
+            var @iconPath = $"http://openweathermap.org/img/w/{item.weather[0].icon}.png";
+
+            <tr>
+                <td class="frc-td">@PrintDate(i)</td>
+                <td class="frc-td">@item.pressure</td>
+                <td class="frc-td">@item.humidity</td>
+                <td class="frc-td">@item.temp.Morn</td>
+                <td class="frc-td">@item.temp.Day</td>
+                <td class="frc-td">@item.temp.Eve</td>
+                <td class="frc-td">@item.temp.Night</td>
+                <td class="frc-td">@item.speed</td>
+                <td class="frc-td">@item.weather[0].description</td>
+                <td class="frc-td"><img src="@iconPath" /></td>
+            </tr>
+        }
+    </table>
+
+</div>
+

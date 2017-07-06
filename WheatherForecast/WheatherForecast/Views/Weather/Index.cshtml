@@ -1,0 +1,53 @@
+﻿@model WheatherForecast.Models.ForecastObject
+@{
+    ViewBag.Title = "Index";
+    var cityName = Model == null ? "" : Model.city.Name;
+    var cnt = Model == null ? 0 : Model.cnt;
+}
+<div>
+    <div>
+        <h2>Smart Weather</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <form action="/Weather/Index" method="post">
+                <input type="text" name="city" class="form-control" placeholder="Enter city name.." /><br />
+                <select name="city" class="form-control">
+                    @foreach (var city in ViewBag.Cities)
+                    {
+                        <option value="@city" class="form-control">@city</option>
+                    }
+                </select>
+                
+                <br />
+
+                <div class="radio">
+                    <label><input type="radio" name="days" value="1">1 day</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="days" value="3">3 days</label>
+                </div>
+                <div class="radio disabled">
+                    <label><input type="radio" name="days" value="7">7 days</label>
+                </div>
+
+                <input class="btn btn-success" type="submit" value="See Forecast" onsubmit="submitForecast(this)" />
+            </form>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+    @if (Model != null)
+    {
+        @Html.Partial("ForecastView", Model);
+    }
+</div>
+<script>
+    function submitForecast(sender) {
+        if ()
+    }
+</script>
+
+
+
