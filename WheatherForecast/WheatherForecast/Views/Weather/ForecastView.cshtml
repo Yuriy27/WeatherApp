@@ -14,15 +14,15 @@
     <h5>Forecast for city: <b>@Model.City.Name</b></h5>
     <table class="table table-bordered table-striped forecast-table">
         <tr>
-            <th class="frc-td">Date</th>
-            <th class="frc-td">Pressure</th>
-            <th class="frc-td">Humidity</th>
-            <th class="frc-td">Temp morning</th>
-            <th class="frc-td">Temp day</th>
-            <th class="frc-td">Temp evening</th>
-            <th class="frc-td">Temp night</th>
-            <th class="frc-td">Wind speed</th>
-            <th class="frc-td">Description</th>
+            <th class="frc-td"><img src="~/Images/icons/date.png" class="w-icon"/> Date</th>
+            <th class="frc-td"><img src="~/Images/icons/pressure.png" class="w-icon" /> Pressure</th>
+            <th class="frc-td"><img src="~/Images/icons/humidity.png" class="w-icon" /> Humidity</th>
+            <th class="frc-td"><img src="~/Images/icons/morning.png" class="w-icon" /> Temp morn</th>
+            <th class="frc-td"><img src="~/Images/icons/day.png" class="w-icon" /> Temp day</th>
+            <th class="frc-td"><img src="~/Images/icons/evening.png" class="w-icon" /> Temp even</th>
+            <th class="frc-td"><img src="~/Images/icons/night.png" class="w-icon" /> Temp night</th>
+            <th class="frc-td"><img src="~/Images/icons/wind.png" class="w-icon" /> Wind speed</th>
+            <th class="frc-td"><img src="~/Images/icons/description.png" class="w-icon" /> Description</th>
             <th class="frc-td">Icon</th>
         </tr>
         @for (int i = 0; i < Model.Cnt; i++)

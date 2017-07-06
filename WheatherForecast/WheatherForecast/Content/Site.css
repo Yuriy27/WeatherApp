@@ -41,3 +41,8 @@ textarea {
     width: auto;
     height: 180px;
 }
+
+.w-icon {
+    width: 20px;
+    height: 20px; 
+}

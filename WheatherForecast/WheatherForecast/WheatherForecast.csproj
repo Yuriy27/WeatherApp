@@ -163,6 +163,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\icons\date.png" />
+    <Content Include="Images\icons\day.png" />
+    <Content Include="Images\icons\description.png" />
+    <Content Include="Images\icons\evening.png" />
+    <Content Include="Images\icons\humidity.png" />
+    <Content Include="Images\icons\morning.png" />
+    <Content Include="Images\icons\night.png" />
+    <Content Include="Images\icons\pressure.png" />
+    <Content Include="Images\icons\wind.png" />
     <Content Include="Images\sun_behind_cloud.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
