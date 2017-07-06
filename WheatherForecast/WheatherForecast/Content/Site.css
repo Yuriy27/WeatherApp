@@ -1,9 +1,10 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    
 }
 
-/* Set padding to keep content from hitting the edges */
+/* Set padding to keep content from hitting the edges background-color: #e6f2ff;*/
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -26,6 +27,7 @@ textarea {
 .forecast-table {
     padding: 20px;
     border-radius: 5px;
+    background-color: #e6ffcc;
 }
 
 .frc-td {

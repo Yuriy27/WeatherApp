@@ -19,6 +19,7 @@ namespace WheatherForecast.Controllers
             _weatherService = new OpenWeatherService();
             _cities = new List<string>() { "Lviv", "Kiev", "Dnipropetrovsk", "Kharkiv", "Odessa" };
         }
+
         // GET: Weather
         [HttpGet]
         public ActionResult Index()
@@ -27,6 +28,7 @@ namespace WheatherForecast.Controllers
             return View();
         }
 
+        // POST: Weather
         [HttpPost]
         public ActionResult Index(string city, int days = 1)
         {
