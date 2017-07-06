@@ -36,3 +36,8 @@ textarea {
     text-align: center;
     font-size: 15px;
 }
+
+.logo {
+    width: auto;
+    height: 180px;
+}

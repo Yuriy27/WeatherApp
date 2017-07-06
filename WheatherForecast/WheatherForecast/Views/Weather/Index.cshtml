@@ -1,5 +1,10 @@
 ﻿@model WheatherForecast.Models.ForecastObject
 
+@helper DrawCityName()
+{
+    @(Model == null ? "" : Model.City.Name)
+}
+
 @helper DrawDayNumbers()
 {
     <br />
@@ -18,8 +23,6 @@
 
 @{
     ViewBag.Title = "Index";
-    var cityName = Model == null ? "" : Model.city.Name;
-    var cnt = Model == null ? 0 : Model.cnt;
 }
 <div>
     <div>
@@ -28,22 +31,31 @@
     <div class="row">
         <div class="col-md-3">
             <form action="/Weather/Index" method="post">
-                <select name="city" class="form-control">
-                    @foreach (var city in ViewBag.Cities)
-                    {
-                        <option value="@city" class="form-control">@city</option>
-                    }
-                </select> 
-                
-                @DrawDayNumbers()
+                <div class="form-group">
+                    <select name="city" class="form-control">
+                        @foreach (var city in ViewBag.Cities)
+                        {
+                            <option value="@city" class="form-control">@city</option>
+                        }
+                    </select>
+
+                    @DrawDayNumbers()
+                </div>           
             </form>
         </div>
         <div class="col-md-3">
             <form action="/Weather/Index" method="post">
-                <input type="text" class="form-control" name="city" placeholder="Enter city name.." />
+                <div class="form-group">
+                    <input type="text" class="form-control" name="city" placeholder="Enter city name.." value="@DrawCityName()" />
 
-                @DrawDayNumbers()
+                    @DrawDayNumbers()
+                </div>            
             </form>
+        </div>
+        <div class="col-md-3"> 
+        </div>
+        <div class="col-md-3">
+            <img src="~/Images/sun_behind_cloud.png" class="logo" />
         </div>
     </div>
     <div>

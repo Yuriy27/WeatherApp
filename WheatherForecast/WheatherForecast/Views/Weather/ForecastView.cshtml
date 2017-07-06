@@ -1,6 +1,6 @@
 ﻿@helper ConvertDate(int unixDate)
 {
-    DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(unixDate);
+    DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixDate);
     string date = dt.ToShortDateString();
     @date;
 }
@@ -11,7 +11,7 @@
 }
 <div>
     <hr />
-    <h5>Forecast for city: <b>@Model.city.Name</b></h5>
+    <h5>Forecast for city: <b>@Model.City.Name</b></h5>
     <table class="table table-bordered table-striped forecast-table">
         <tr>
             <th class="frc-td">Date</th>
@@ -25,21 +25,21 @@
             <th class="frc-td">Description</th>
             <th class="frc-td">Icon</th>
         </tr>
-        @for (int i = 0; i < Model.cnt; i++)
+        @for (int i = 0; i < Model.Cnt; i++)
         {
             var item = Model.list[i];
-            var @iconPath = $"http://openweathermap.org/img/w/{item.weather[0].icon}.png";
+            var @iconPath = $"http://openweathermap.org/img/w/{item.Weather[0].Icon}.png";
 
             <tr>
                 <td class="frc-td">@PrintDate(i)</td>
-                <td class="frc-td">@item.pressure</td>
-                <td class="frc-td">@item.humidity</td>
-                <td class="frc-td">@item.temp.Morn</td>
-                <td class="frc-td">@item.temp.Day</td>
-                <td class="frc-td">@item.temp.Eve</td>
-                <td class="frc-td">@item.temp.Night</td>
-                <td class="frc-td">@item.speed</td>
-                <td class="frc-td">@item.weather[0].description</td>
+                <td class="frc-td">@item.Pressure</td>
+                <td class="frc-td">@item.Humidity</td>
+                <td class="frc-td">@item.Temp.Morn</td>
+                <td class="frc-td">@item.Temp.Day</td>
+                <td class="frc-td">@item.Temp.Eve</td>
+                <td class="frc-td">@item.Temp.Night</td>
+                <td class="frc-td">@item.Speed</td>
+                <td class="frc-td">@item.Weather[0].Description</td>
                 <td class="frc-td"><img src="@iconPath" /></td>
             </tr>
         }
