@@ -14,9 +14,9 @@ namespace WheatherForecast.Controllers
 
         private IWeatherService _weatherService;
 
-        public WeatherController()
+        public WeatherController(IWeatherService weatherService)
         {
-            _weatherService = new OpenWeatherService();
+            _weatherService = weatherService;
             _cities = new List<string>() { "Lviv", "Kiev", "Dnipropetrovsk", "Kharkiv", "Odessa" };
         }
 

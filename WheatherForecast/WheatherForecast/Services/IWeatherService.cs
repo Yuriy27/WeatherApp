@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace WheatherForecast.Services
 {
-    interface IWeatherService
+    public interface IWeatherService
     {
         ForecastObject GetForecast(string city, int days);
     }
