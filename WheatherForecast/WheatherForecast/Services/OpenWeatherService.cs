@@ -24,7 +24,15 @@ namespace WheatherForecast.Services
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(uri);
             request.Method = "GET";
             request.ContentType = "application/json";
-            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                throw;
+            }
             ForecastObject forecast;
             using (var reader = new StreamReader(response.GetResponseStream()))
             {
