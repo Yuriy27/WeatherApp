@@ -6,6 +6,8 @@ using System.Net;
 using System.Web;
 using WheatherForecast.Models;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WheatherForecast.Services
 {
@@ -21,7 +23,7 @@ namespace WheatherForecast.Services
         public ForecastObject GetForecast(string city, int days)
         {
             var uri = $"http://api.openweathermap.org/data/2.5/forecast/daily?q={city}&units=metric&APPID={_apiKey}&cnt={days}";
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(uri);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = "GET";
             request.ContentType = "application/json";
             HttpWebResponse response;
@@ -42,5 +44,22 @@ namespace WheatherForecast.Services
 
             return forecast;
         }
+
+        //public async Task<ForecastObject> GetForecast(string city, int days)
+        //{
+        //    var uri = $"http://api.openweathermap.org/data/2.5/forecast/daily?q={city}&units=metric&APPID={_apiKey}&cnt={days}";
+        //    var httpClient = new HttpClient();
+        //    var response = await httpClient.GetAsync(uri);
+        //    try
+        //    {
+        //        response.EnsureSuccessStatusCode();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+
+        //    return null;
+        //}
     }
 }
