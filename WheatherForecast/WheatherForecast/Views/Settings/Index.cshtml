@@ -1,0 +1,11 @@
+﻿@model IEnumerable<WheatherForecast.Models.CityEntity>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Settings</h2>
+@foreach (var city in Model)
+{
+    <h3>@city.Name</h3>
+
+}

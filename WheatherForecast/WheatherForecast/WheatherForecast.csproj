@@ -170,6 +170,8 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityEntity.cs" />
     <Compile Include="Models\Coordinates.cs" />
+    <Compile Include="Models\ForecastContext.cs" />
+    <Compile Include="Models\ForecastDatabaseInitializer.cs" />
     <Compile Include="Models\ForecastEntity.cs" />
     <Compile Include="Models\List.cs" />
     <Compile Include="Models\Temperature.cs" />
@@ -229,11 +231,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Weather\Index.cshtml" />
     <Content Include="Views\Weather\ForecastView.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\History\" />
-    <Folder Include="Views\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -8,10 +8,13 @@ namespace WheatherForecast.Models
 {
     public class ForecastContext : DbContext
     {
-        public ForecastContext() : base("ForecastContext") { }
+        public ForecastContext() : base("ForecastContext")
+        {
+            Database.SetInitializer(new ForecastDatabaseInitializer());
+        }
 
-        public DbSet<CityEntity> Cities;
+        public DbSet<CityEntity> Cities { get; set; }
 
-        public DbSet<ForecastEntity> Forecasts;
+        public DbSet<ForecastEntity> Forecasts { get; set; }
     }
 }
