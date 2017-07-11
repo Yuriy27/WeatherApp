@@ -44,6 +44,9 @@ namespace WheatherForecast.Controllers
             try
             {
                 ForecastObject forecast = _weatherService.GetForecast(city, days);
+                ForecastEntity entity = (ForecastEntity)forecast;
+                _context.Forecasts.Add(entity);
+                _context.SaveChanges();
                 return View(forecast);
             }
             catch (WebException ex)

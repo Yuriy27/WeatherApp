@@ -5,3 +5,41 @@
 
 <h2>History</h2>
 
+<div>
+    <hr />
+    <table class="table table-bordered table-striped forecast-table">
+        <tr>
+            <th class="frc-td"><img src="~/Images/icons/date.png" class="w-icon" /> Date</th>
+            <th class="frc-td"><img src="~/Images/icons/city.png" class="w-icon" /> City</th>
+            <th class="frc-td"><img src="~/Images/icons/pressure.png" class="w-icon" /> Pressure</th>
+            <th class="frc-td"><img src="~/Images/icons/humidity.png" class="w-icon" /> Humidity</th>
+            <th class="frc-td"><img src="~/Images/icons/morning.png" class="w-icon" /> Temp morn</th>
+            <th class="frc-td"><img src="~/Images/icons/day.png" class="w-icon" /> Temp day</th>
+            <th class="frc-td"><img src="~/Images/icons/evening.png" class="w-icon" /> Temp even</th>
+            <th class="frc-td"><img src="~/Images/icons/night.png" class="w-icon" /> Temp night</th>
+            <th class="frc-td"><img src="~/Images/icons/wind.png" class="w-icon" /> Wind speed</th>
+            <th class="frc-td"><img src="~/Images/icons/description.png" class="w-icon" /> Description</th>
+            <th class="frc-td">Icon</th>
+        </tr>
+        @foreach (var forecast in Model)
+        {
+            //var item = Model.list[i];
+            var @iconPath = $"http://openweathermap.org/img/w/{forecast.Icon}.png";
+
+            <tr style="margin-top:15px">
+                <td class="frc-td">@forecast.Date</td>
+                <td class="frc-td">@forecast.City</td>
+                <td class="frc-td">@forecast.Pressure</td>
+                <td class="frc-td">@forecast.Humidity</td>
+                <td class="frc-td">@forecast.TemperatureMorning</td>
+                <td class="frc-td">@forecast.TemperatureDay</td>
+                <td class="frc-td">@forecast.TemperatureEvening</td>
+                <td class="frc-td">@forecast.TemperatureNight</td>
+                <td class="frc-td">@forecast.WindSpeed</td>
+                <td class="frc-td">@forecast.Description</td>
+                <td class="frc-td"><img src="@iconPath" /></td>
+            </tr>
+        }
+    </table>
+
+</div>

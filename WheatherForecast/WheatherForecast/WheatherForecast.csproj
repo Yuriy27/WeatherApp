@@ -194,6 +194,7 @@
     <Content Include="Images\icons\description.png" />
     <Content Include="Images\icons\evening.png" />
     <Content Include="Images\icons\humidity.png" />
+    <Content Include="Images\icons\city.png" />
     <Content Include="Images\icons\morning.png" />
     <Content Include="Images\icons\night.png" />
     <Content Include="Images\icons\pressure.png" />
