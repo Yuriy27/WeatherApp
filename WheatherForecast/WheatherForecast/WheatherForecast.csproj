@@ -199,6 +199,7 @@
     <Content Include="Images\icons\night.png" />
     <Content Include="Images\icons\pressure.png" />
     <Content Include="Images\icons\wind.png" />
+    <Content Include="Images\settings\settings.png" />
     <Content Include="Images\settings\minus.png" />
     <Content Include="Images\settings\plus.png" />
     <Content Include="Images\sun_behind_cloud.png" />

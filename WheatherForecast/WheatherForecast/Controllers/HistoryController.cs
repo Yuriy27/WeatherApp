@@ -18,8 +18,8 @@ namespace WheatherForecast.Controllers
         // GET: History
         public ActionResult Index()
         {
-            var history = _context.Forecasts;
-            return View(history);
+            var history = _context.Forecasts.AsEnumerable();
+            return View(history.Reverse());
         }
     }
 }
