@@ -6,6 +6,20 @@
 <h2>Settings</h2>
 @foreach (var city in Model)
 {
-    <h3>@city.Name</h3>
-
+    <form action="/Settings/Delete" method="post">
+        <div class="form-group form-inline">
+            <input type="hidden" name="id" value="@city.Id" />
+            <label>@city.Name</label>
+            <input type="image" src="~/Images/settings/minus.png" class="w-icon" />
+        </div>    
+    </form>
+   
 }
+<form action="/Settings/Add" method="post">
+    <div class="form-group form-inline">
+        <input type="text" name="name" class="form-control" placeholder="Enter new city.." />
+        <input type="image" src="~/Images/settings/plus.png" class="w-icon" />
+    </div>   
+</form>
+
+<label class="error-message">@(ViewBag.ErrorMessage ?? "")</label>

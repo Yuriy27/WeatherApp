@@ -47,6 +47,10 @@ textarea {
     height: 20px; 
 }
 
+.settings-icon {
+
+}
+
 .error-message {
     color: red;
 }

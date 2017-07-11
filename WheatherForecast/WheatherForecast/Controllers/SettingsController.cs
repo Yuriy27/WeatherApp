@@ -51,9 +51,10 @@ namespace WheatherForecast.Controllers
                 return RedirectToAction("Index");
             }
             var cities = _context.Cities;
-            if (cities.Contains(city))
+            if (cities.Count(c => c.Name.Equals(city.Name)) != 0)
             {
                 ViewBag.ErrorMessage = $"City '{city.Name}' had already added in default cities.";
+                return View("~/Views/Settings/Index.cshtml", cities);
             }
             try
             {
@@ -62,6 +63,7 @@ namespace WheatherForecast.Controllers
             catch (Exception ex)
             {
                 ViewBag.ErrorMessage = $"SmartWeather service doesn't provide forecast for city '{city.Name}'";
+                return View("~/Views/Settings/Index.cshtml", cities);
             }
             cities.Add(city);
             _context.SaveChanges();

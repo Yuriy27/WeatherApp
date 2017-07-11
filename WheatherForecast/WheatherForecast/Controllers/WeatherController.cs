@@ -13,12 +13,15 @@ namespace WheatherForecast.Controllers
     {
         private List<string> _cities;
 
+        private ForecastContext _context;
+
         private IWeatherService _weatherService;
 
         public WeatherController(IWeatherService weatherService)
         {
             _weatherService = weatherService;
-            _cities = new List<string>() { "Lviv", "Kiev", "Dnipropetrovsk", "Kharkiv", "Odessa" };
+            _context = new ForecastContext();
+            _cities = _context.Cities.Select(c => c.Name).ToList();
         }
 
         // GET: Weather
