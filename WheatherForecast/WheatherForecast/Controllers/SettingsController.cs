@@ -5,26 +5,28 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WheatherForecast.Models;
+using WheatherForecast.Repositories.Concrete;
 using WheatherForecast.Services;
 
 namespace WheatherForecast.Controllers
 {
     public class SettingsController : Controller
     {
-        private ForecastContext _context;
 
         private IWeatherService _weatherService;
+
+        private UnitOfWork _unitOfWork;
 
         public SettingsController(IWeatherService weatherService)
         {
             _weatherService = weatherService;
-            _context = new ForecastContext();
+            _unitOfWork = new UnitOfWork();
         }
 
         // GET: Settings
         public ActionResult Index()
         {
-            IEnumerable<CityEntity> cities = _context.Cities;
+            IEnumerable<CityEntity> cities = _unitOfWork.Cities.GetAll();//_context.Cities;
             return View(cities);
         }
 
@@ -32,13 +34,8 @@ namespace WheatherForecast.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteCity(int id)
         {
-            var city = _context.Cities.Find(id);
-            if (city == null)
-            {
-                return HttpNotFound();
-            }
-            _context.Cities.Remove(city);
-            _context.SaveChanges();
+            _unitOfWork.Cities.Delete(id);
+            _unitOfWork.Save();
 
             return RedirectToAction("Index");
         }
@@ -52,7 +49,7 @@ namespace WheatherForecast.Controllers
                 return RedirectToAction("Index");
             }
             var view = "~/Views/Settings/Index.cshtml";
-            var cities = _context.Cities;
+            var cities = _unitOfWork.Cities.GetAll();//_context.Cities;
             if (cities.Count(c => c.Name.Equals(city.Name)) != 0)
             {
                 ViewBag.ErrorMessage = $"City '{city.Name}' had already added in default cities.";
@@ -67,8 +64,8 @@ namespace WheatherForecast.Controllers
                 ViewBag.ErrorMessage = $"SmartWeather service doesn't provide forecast for city '{city.Name}'";
                 return View(view, cities);
             }
-            cities.Add(city);
-            _context.SaveChanges();
+            _unitOfWork.Cities.Create(city);
+            _unitOfWork.Save();
 
             return RedirectToAction("Index");
         }
@@ -81,8 +78,8 @@ namespace WheatherForecast.Controllers
             {
                 return RedirectToAction("Index");
             }
-            _context.Entry(city).State = EntityState.Modified;
-            _context.SaveChanges();
+            _unitOfWork.Cities.Update(city);
+            _unitOfWork.Save();
 
             return RedirectToAction("Index");
         }
