@@ -3,12 +3,46 @@
     ViewBag.Title = "Index";
 }
 
-<h2>History</h2>
-
+<div class="row">
+    <div class="col-md-6">
+        <h2>History</h2>
+    </div>
+    <div class="col-md-3">
+        <br />
+        <form action="/History/Search" method="get">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="city" placeholder="Enter city name.." alt="Search by city" />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-success" value="Filter" />
+                    </div>
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3">
+        <br />
+        <form action="/History/Search" method="post">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input class="form-control" type="date" name="date" placeholder="Choose date.." alt="Search by date" />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-success"  value="Filter"/>
+                    </div>
+                </div>              
+            </div>
+        </form>
+    </div>
+</div>
 <div>
-    <hr />
-    <table class="table">
-        <tr>
+    <br />
+    <h4><span class="label label-info">@(ViewBag.InfoMessage ?? "")</span></h4>
+    <table class="table table-responsive">
+        <tr class="active">
             <th class="frc-td"><img src="~/Images/icons/date.png" class="w-icon" /> Date</th>
             <th class="frc-td"><img src="~/Images/icons/city.png" class="w-icon" /> City</th>
             <th class="frc-td"><img src="~/Images/icons/pressure.png" class="w-icon" /> Pressure</th>

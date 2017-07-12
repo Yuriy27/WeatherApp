@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -50,11 +51,12 @@ namespace WheatherForecast.Controllers
             {
                 return RedirectToAction("Index");
             }
+            var view = "~/Views/Settings/Index.cshtml";
             var cities = _context.Cities;
             if (cities.Count(c => c.Name.Equals(city.Name)) != 0)
             {
                 ViewBag.ErrorMessage = $"City '{city.Name}' had already added in default cities.";
-                return View("~/Views/Settings/Index.cshtml", cities);
+                return View(view, cities);
             }
             try
             {
@@ -63,12 +65,26 @@ namespace WheatherForecast.Controllers
             catch (Exception ex)
             {
                 ViewBag.ErrorMessage = $"SmartWeather service doesn't provide forecast for city '{city.Name}'";
-                return View("~/Views/Settings/Index.cshtml", cities);
+                return View(view, cities);
             }
             cities.Add(city);
             _context.SaveChanges();
 
-            return RedirectToAction("Index");//View("~/Views/Settings/Index.cshtml");
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ActionName("Update")]
+        public ActionResult UpdateCity(CityEntity city)
+        {
+            if (city == null || string.IsNullOrEmpty(city.Name))
+            {
+                return RedirectToAction("Index");
+            }
+            _context.Entry(city).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

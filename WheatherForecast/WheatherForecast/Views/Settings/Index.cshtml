@@ -5,31 +5,54 @@
 
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <h2>Settings</h2>
     </div>
-    <div class="col-md-3">
-        <img src="~/Images/settings/settings.png" />
+    <div class="col-md-10">
+        <br />
+        <img src="~/Images/settings/settings.png" width="60px" />
     </div>
 </div>
+<hr />
 @foreach (var city in Model)
 {
-    <form action="/Settings/Delete" method="post">
-        <div class="form-group form-inline">
-            <div class="row">
-                <div class="col-md-3">
+    <div class="row">
+        <div class="col-md-3">
+            <form action="/Settings/Delete" method="post">
+                <div class="form-group form-inline">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="hidden" name="id" value="@city.Id" />
+                            <label>@city.Name</label>
+                        </div>
+                        <div class="col-md-4">
+                            @*<input type="image" src="~/Images/settings/minus.png" class="w-icon" />*@
+                            <input type="submit" class="btn btn-danger" value="Delete" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3">
+            <form action="/Settings/Update" method="post">
+                <div class="form-group form-inline">
                     <input type="hidden" name="id" value="@city.Id" />
-                    <label>@city.Name</label>
-                </div>
-                <div class="col-md-3">
-                    @*<input type="image" src="~/Images/settings/minus.png" class="w-icon" />*@
-                    <input type="submit" class="btn btn-danger" value="Delete"  />
-                </div>
-            </div>      
-        </div>    
-    </form>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" placeholder="Enter new name.." />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" class="btn btn-primary" value="Update" />
+                        </div>
+                    </div>               
+                </div>                         
+            </form>
+        </div>
+    </div>
+    
    
 }
+<hr />
 <form action="/Settings/Add" method="post">
     <div class="form-group form-inline">
         <div class="row">
@@ -38,7 +61,7 @@
             </div>
             <div class="col-md-3">
                 @*<input type="image" src="~/Images/settings/plus.png" class="w-icon" />*@
-                <input type="submit" class="btn btn-success" value=" Add " />
+                <input type="submit" class="btn btn-success" value="Add City" />
             </div>
         </div>  
     </div>   
