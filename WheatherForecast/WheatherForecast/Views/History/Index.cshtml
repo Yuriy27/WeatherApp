@@ -61,7 +61,7 @@
 
             <tr style="margin-top:15px">
                 <td class="frc-td">@forecast.Date.ToShortDateString()</td>
-                <td class="frc-td">@Html.ActionLink(@forecast.City, "Index", "Weather", new {City = forecast.City, Days = 7 })</td>
+                <td class="frc-td">@forecast.City</td>
                 <td class="frc-td">@forecast.Pressure</td>
                 <td class="frc-td">@forecast.Humidity</td>
                 <td class="frc-td">@forecast.TemperatureMorning</td>

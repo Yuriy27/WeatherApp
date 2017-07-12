@@ -167,16 +167,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\City.cs" />
-    <Compile Include="Models\CityEntity.cs" />
-    <Compile Include="Models\Coordinates.cs" />
-    <Compile Include="Models\ForecastContext.cs" />
-    <Compile Include="Models\ForecastDatabaseInitializer.cs" />
-    <Compile Include="Models\ForecastEntity.cs" />
-    <Compile Include="Models\List.cs" />
-    <Compile Include="Models\Temperature.cs" />
-    <Compile Include="Models\Weather.cs" />
-    <Compile Include="Models\ForecastObject.cs" />
+    <Compile Include="Models\OpenWeatherModels\City.cs" />
+    <Compile Include="Models\DbEntities\CityEntity.cs" />
+    <Compile Include="Models\OpenWeatherModels\Coordinates.cs" />
+    <Compile Include="Models\EntityFramework\ForecastContext.cs" />
+    <Compile Include="Models\EntityFramework\ForecastDatabaseInitializer.cs" />
+    <Compile Include="Models\DbEntities\ForecastEntity.cs" />
+    <Compile Include="Models\OpenWeatherModels\List.cs" />
+    <Compile Include="Models\OpenWeatherModels\Temperature.cs" />
+    <Compile Include="Models\OpenWeatherModels\Weather.cs" />
+    <Compile Include="Models\OpenWeatherModels\ForecastObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Concrete\CityRepository.cs" />
     <Compile Include="Repositories\Concrete\HistoryRepository.cs" />
