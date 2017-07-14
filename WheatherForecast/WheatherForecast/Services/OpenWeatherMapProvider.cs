@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace WheatherForecast.Services
 {
-    public class OpenWeatherService : IWeatherService
+    public class OpenWeatherMapProvider : IForecastProvider
     {
         private string _apiKey;
 
-        public OpenWeatherService()
+        public OpenWeatherMapProvider()
         {
             _apiKey = System.Configuration.ConfigurationManager.AppSettings["AppKey"];
         }

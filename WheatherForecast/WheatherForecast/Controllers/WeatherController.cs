@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WheatherForecast.Models;
 using WheatherForecast.Repositories.Concrete;
+using WheatherForecast.Repositories.Interfaces;
 using WheatherForecast.Services;
 
 namespace WheatherForecast.Controllers
@@ -14,15 +15,16 @@ namespace WheatherForecast.Controllers
     {
         private List<string> _cities;
 
-        private IWeatherService _weatherService;
+        private IForecastProvider _forecastProvider;
 
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _uow;
 
-        public WeatherController(IWeatherService weatherService)
+        public WeatherController(IForecastProvider forecastProvider, IUnitOfWork uow)
         {
-            _weatherService = weatherService;
-            _unitOfWork = new UnitOfWork();
-            _cities = _unitOfWork.Cities.GetAll().Select(c => c.Name).ToList();
+            _forecastProvider = forecastProvider;
+            _uow = uow;
+            //_uow = new UnitOfWork();
+            _cities = _uow.Repository<CityEntity>().GetAll().Select(c => c.Name).ToList();
         }
 
         // GET: Weather
@@ -44,10 +46,10 @@ namespace WheatherForecast.Controllers
             }
             try
             {
-                ForecastObject forecast = _weatherService.GetForecast(city, days);
+                ForecastObject forecast = _forecastProvider.GetForecast(city, days);
                 ForecastEntity entity = (ForecastEntity)forecast;
-                _unitOfWork.Forecasts.Create(entity);
-                _unitOfWork.Save();
+                _uow.Repository<ForecastEntity>().Create(entity);
+                _uow.Save();
                 return View(forecast);
             }
             catch (WebException ex)

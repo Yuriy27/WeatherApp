@@ -5,22 +5,22 @@ using System.Web;
 using System.Web.Mvc;
 using WheatherForecast.Models;
 using WheatherForecast.Repositories.Concrete;
+using WheatherForecast.Repositories.Interfaces;
 
 namespace WheatherForecast.Controllers
 {
     public class HistoryController : Controller
     {
+        private readonly IUnitOfWork _uow;
 
-        private UnitOfWork _unitOfWork;
-
-        public HistoryController()
+        public HistoryController(IUnitOfWork uow)
         {
-            _unitOfWork = new UnitOfWork();
+            _uow = uow;
         }
         // GET: History
         public ActionResult Index()
         {
-            var history = _unitOfWork.Forecasts.GetAll();
+            var history = _uow.Repository<ForecastEntity>().GetAll();
             return View(history.Reverse());
         }
 
@@ -31,7 +31,7 @@ namespace WheatherForecast.Controllers
                 return RedirectToAction("Index");
             }
             var view = "~/Views/History/Index.cshtml";
-            var history = _unitOfWork.Forecasts.GetAll().Where(c => c.City == city);
+            var history = _uow.Repository<ForecastEntity>().GetAll().Where(c => c.City == city);
             ViewBag.InfoMessage = $"Results for city '{city}'";
             return View(view, history.Reverse());
         }
@@ -44,7 +44,7 @@ namespace WheatherForecast.Controllers
                 return RedirectToAction("Index");
             }
             var view = "~/Views/History/Index.cshtml";
-            var history = _unitOfWork.Forecasts.GetAll()
+            var history = _uow.Repository<ForecastEntity>().GetAll()
                 .Where(c => c.Date.ToShortDateString().Equals(date.Value.ToShortDateString()));
             ViewBag.InfoMessage = $"Results for {date.Value.ToShortDateString()}";
             return View(view, history.Reverse());

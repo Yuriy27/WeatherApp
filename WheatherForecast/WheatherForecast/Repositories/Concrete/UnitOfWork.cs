@@ -3,39 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WheatherForecast.Models;
+using WheatherForecast.Repositories.Interfaces;
 
 namespace WheatherForecast.Repositories.Concrete
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
-        private ForecastContext _context = new ForecastContext();
+        private readonly ForecastContext _context = new ForecastContext();
+        //private CityRepository _cityRepository;
 
-        private CityRepository _cityRepository;
+        //private HistoryRepository _historyRepository;
 
-        private HistoryRepository _historyRepository;
+        //public CityRepository Cities
+        //{
+        //    get
+        //    {
+        //        if (_cityRepository == null)
+        //        {
+        //            _cityRepository = new CityRepository(_context);
+        //        }
+        //        return _cityRepository;
+        //    }
+        //}
 
-        public CityRepository Cities
+        //public HistoryRepository Forecasts
+        //{
+        //    get
+        //    {
+        //        if (_historyRepository == null)
+        //        {
+        //            _historyRepository = new HistoryRepository(_context);
+        //        }
+        //        return _historyRepository;
+        //    }
+        //}
+
+        public IRepository<T> Repository<T>() where T : class
         {
-            get
-            {
-                if (_cityRepository == null)
-                {
-                    _cityRepository = new CityRepository(_context);
-                }
-                return _cityRepository;
-            }
-        }
-
-        public HistoryRepository Forecasts
-        {
-            get
-            {
-                if (_historyRepository == null)
-                {
-                    _historyRepository = new HistoryRepository(_context);
-                }
-                return _historyRepository;
-            }
+            return new Repository<T>(_context);
         }
 
         public void Save()
@@ -43,17 +48,17 @@ namespace WheatherForecast.Repositories.Concrete
             _context.SaveChanges();
         }
 
-        private bool disposed = false;
+        private bool _disposed;
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
-                this.disposed = true;
+                _disposed = true;
             }
         }
 

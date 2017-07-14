@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WheatherForecast.Repositories.Concrete;
+using WheatherForecast.Repositories.Interfaces;
 using WheatherForecast.Services;
 
 namespace WheatherForecast.Util
 {
     public class NinjectDependencyResolver : IDependencyResolver
     {
-        private IKernel _kernel;
+        private readonly IKernel _kernel;
 
         public NinjectDependencyResolver(IKernel kernel)
         {
@@ -29,7 +31,8 @@ namespace WheatherForecast.Util
 
         private void AddBindings()
         {
-            _kernel.Bind<IWeatherService>().To<OpenWeatherService>().InTransientScope();
+            _kernel.Bind<IForecastProvider>().To<OpenWeatherMapProvider>().InTransientScope();
+            _kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InTransientScope();
         }
     }
 }
