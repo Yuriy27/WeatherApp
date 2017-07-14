@@ -15,19 +15,18 @@ namespace WheatherForecast.Controllers
     {
         private readonly IForecastProvider _forecastProvider;
 
-        private readonly IUnitOfWork _uow;
+        private readonly IWeatherService _weatherService;
 
-        public SettingsController(IForecastProvider forecastProvider, IUnitOfWork uow)
+        public SettingsController(IForecastProvider forecastProvider, IWeatherService weatherService)
         {
             _forecastProvider = forecastProvider;
-            //_uow = new UnitOfWork();
-            _uow = uow;
+            _weatherService = weatherService;
         }
 
         // GET: Settings
         public ActionResult Index()
         {
-            IEnumerable<CityEntity> cities = _uow.Repository<CityEntity>().GetAll();//_context.Cities;
+            var cities = _weatherService.GetCities();
             return View(cities);
         }
 
@@ -35,8 +34,7 @@ namespace WheatherForecast.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteCity(int id)
         {
-            _uow.Repository<CityEntity>().Delete(id);
-            _uow.Save();
+            _weatherService.DeleteCity(id);
 
             return RedirectToAction("Index");
         }
@@ -45,13 +43,13 @@ namespace WheatherForecast.Controllers
         [ActionName("Add")]
         public ActionResult AddCity(CityEntity city)
         {
-            if (city == null || string.IsNullOrEmpty(city.Name))
+            if (string.IsNullOrEmpty(city?.Name))
             {
                 return RedirectToAction("Index");
             }
             var view = "~/Views/Settings/Index.cshtml";
-            var cities = _uow.Repository<CityEntity>().GetAll();//_context.Cities;
-            if (cities.Count(c => c.Name.Equals(city.Name)) != 0)
+            var cities = _weatherService.GetCities();
+            if (_weatherService.GetCitiesByName(city.Name).Count() != 0)
             {
                 ViewBag.ErrorMessage = $"City '{city.Name}' had already added in default cities.";
                 return View(view, cities);
@@ -65,8 +63,7 @@ namespace WheatherForecast.Controllers
                 ViewBag.ErrorMessage = $"SmartWeather service doesn't provide forecast for city '{city.Name}'";
                 return View(view, cities);
             }
-            _uow.Repository<CityEntity>().Create(city);
-            _uow.Save();
+            _weatherService.AddCity(city);
 
             return RedirectToAction("Index");
         }
@@ -79,8 +76,7 @@ namespace WheatherForecast.Controllers
             {
                 return RedirectToAction("Index");
             }
-            _uow.Repository<CityEntity>().Update(city);
-            _uow.Save();
+            _weatherService.UpdateCity(city);
 
             return RedirectToAction("Index");
         }

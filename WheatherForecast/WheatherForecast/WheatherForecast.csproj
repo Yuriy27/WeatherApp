@@ -184,8 +184,10 @@
     <Compile Include="Repositories\Concrete\UnitOfWork.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Services\IForecastProvider.cs" />
     <Compile Include="Services\IWeatherService.cs" />
-    <Compile Include="Services\OpenWeatherService.cs" />
+    <Compile Include="Services\OpenWeatherMapProvider.cs" />
+    <Compile Include="Services\WeatherService.cs" />
     <Compile Include="Util\NinjectDependencyResolver.cs" />
   </ItemGroup>
   <ItemGroup>

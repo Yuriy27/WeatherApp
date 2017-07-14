@@ -6,21 +6,22 @@ using System.Web.Mvc;
 using WheatherForecast.Models;
 using WheatherForecast.Repositories.Concrete;
 using WheatherForecast.Repositories.Interfaces;
+using WheatherForecast.Services;
 
 namespace WheatherForecast.Controllers
 {
     public class HistoryController : Controller
     {
-        private readonly IUnitOfWork _uow;
+        private readonly IWeatherService _weatherService;
 
-        public HistoryController(IUnitOfWork uow)
+        public HistoryController(IWeatherService weatherService)
         {
-            _uow = uow;
+            _weatherService = weatherService;
         }
         // GET: History
         public ActionResult Index()
         {
-            var history = _uow.Repository<ForecastEntity>().GetAll();
+            var history = _weatherService.GetForeacsts();
             return View(history.Reverse());
         }
 
@@ -31,7 +32,7 @@ namespace WheatherForecast.Controllers
                 return RedirectToAction("Index");
             }
             var view = "~/Views/History/Index.cshtml";
-            var history = _uow.Repository<ForecastEntity>().GetAll().Where(c => c.City == city);
+            var history = _weatherService.GetForecastsByCity(city);
             ViewBag.InfoMessage = $"Results for city '{city}'";
             return View(view, history.Reverse());
         }
@@ -43,10 +44,10 @@ namespace WheatherForecast.Controllers
             {
                 return RedirectToAction("Index");
             }
+            var dateTime = date.Value; 
             var view = "~/Views/History/Index.cshtml";
-            var history = _uow.Repository<ForecastEntity>().GetAll()
-                .Where(c => c.Date.ToShortDateString().Equals(date.Value.ToShortDateString()));
-            ViewBag.InfoMessage = $"Results for {date.Value.ToShortDateString()}";
+            var history = _weatherService.GetForecastsByDate(dateTime);
+            ViewBag.InfoMessage = $"Results for {dateTime.ToShortDateString()}";
             return View(view, history.Reverse());
         }
 

@@ -17,14 +17,13 @@ namespace WheatherForecast.Controllers
 
         private IForecastProvider _forecastProvider;
 
-        private IUnitOfWork _uow;
+        private IWeatherService _weatherService;
 
-        public WeatherController(IForecastProvider forecastProvider, IUnitOfWork uow)
+        public WeatherController(IForecastProvider forecastProvider, IWeatherService weatherService)
         {
             _forecastProvider = forecastProvider;
-            _uow = uow;
-            //_uow = new UnitOfWork();
-            _cities = _uow.Repository<CityEntity>().GetAll().Select(c => c.Name).ToList();
+            _weatherService = weatherService;
+            _cities = _weatherService.GetCityNames().ToList();
         }
 
         // GET: Weather
@@ -48,8 +47,7 @@ namespace WheatherForecast.Controllers
             {
                 ForecastObject forecast = _forecastProvider.GetForecast(city, days);
                 ForecastEntity entity = (ForecastEntity)forecast;
-                _uow.Repository<ForecastEntity>().Create(entity);
-                _uow.Save();
+                _weatherService.AddForecast(entity);
                 return View(forecast);
             }
             catch (WebException ex)

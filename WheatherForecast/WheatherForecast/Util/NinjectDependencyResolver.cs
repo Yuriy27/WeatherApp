@@ -33,6 +33,7 @@ namespace WheatherForecast.Util
         {
             _kernel.Bind<IForecastProvider>().To<OpenWeatherMapProvider>().InTransientScope();
             _kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InTransientScope();
+            _kernel.Bind<IWeatherService>().To<WeatherService>().InTransientScope();
         }
     }
 }
