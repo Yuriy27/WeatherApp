@@ -8,6 +8,7 @@ using WheatherForecast.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
+using WheatherForecast.Models.OpenWeatherModels;
 
 namespace WheatherForecast.Services
 {

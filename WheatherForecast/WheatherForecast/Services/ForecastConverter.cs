@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using WheatherForecast.Models;
+using WheatherForecast.Models.OpenWeatherModels;
 
-namespace WheatherForecast.Models.OpenWeatherModels
+namespace WheatherForecast.Services
 {
-    public class ForecastObject
+    public class ForecastConverter : IForecastConverter
     {
-        public City City { get; set; }
-        public string Cod { get; set; }
-        public double Message { get; set; }
-        public int Cnt { get; set; }
-        public List<List> list { get; set; }
-
-        public static explicit operator ForecastEntity(ForecastObject obj)
+        public ForecastEntity ConvertToEntity(ForecastObject obj)
         {
             var entity = new ForecastEntity();
             var temp = obj.list[0];

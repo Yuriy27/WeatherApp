@@ -184,6 +184,8 @@
     <Compile Include="Repositories\Concrete\UnitOfWork.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Services\ForecastConverter.cs" />
+    <Compile Include="Services\IForecastConverter.cs" />
     <Compile Include="Services\IForecastProvider.cs" />
     <Compile Include="Services\IWeatherService.cs" />
     <Compile Include="Services\OpenWeatherMapProvider.cs" />

@@ -28,47 +28,45 @@ namespace WheatherForecast.Tests
             
         }
 
-//        [Test]
-//        public void GetForecast_When_given_invalid_city_name_Then_throws_exception()
-//        {
-//            var invalidCityName = "K";
-//            var days = 1;
+        [Test]
+        public void GetForecast_When_given_invalid_city_name_Then_throws_exception()
+        {
+            var invalidCityName = "K";
+            var days = 1;
 
-//            Assert.Throws<WebException>(() => _provider.GetForecast(invalidCityName, days));
-//;       }
+            Assert.Throws<WebException>(() => _provider.GetForecast(invalidCityName, days));
+        }
 
-//        [Test]
-//        [TestCase(1)]
-//        [TestCase(17)]
-//        public void GetForecast_When_given_valid_city_and_positive_count_of_days_Then_result_not_null(int days)
-//        {
-//            var cityName = "Lviv";
+        [Test]
+        [TestCase(1)]
+        [TestCase(17)]
+        public void GetForecast_When_given_valid_city_and_positive_count_of_days_Then_result_not_null(int days)
+        {
+            var cityName = "Odessa";
 
-//            var result = _provider.GetForecast(cityName, days);
+            var result = _provider.GetForecast(cityName, days);
 
-//            Assert.That(result, Is.Not.Null);
-//            Assert.That(result.City.Name, Is.EqualTo(cityName));
-//            Assert.That(result.Cnt, Is.EqualTo(days));
-//            Assert.That(result.list.Count, Is.EqualTo(days));
-//        }
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.City.Name, Is.EqualTo(cityName));
+        }
 
-//        [Test]
-//        [TestCase(0)]
-//        [TestCase(18)]
-//        public void GetForecast_When_given_invalid_count_of_days_Then_throws_exception(int days)//valid days [1..17]
-//        {
-//            var cityName = "Kharkiv";
+        [Test]
+        [TestCase(0)]
+        [TestCase(18)]
+        public void GetForecast_When_given_invalid_count_of_days_Then_throws_exception(int days)//valid days [1..17]
+        {
+            var cityName = "Kharkiv";
 
-//            Assert.Throws<ArgumentException>(() => _provider.GetForecast(cityName, days)) ;
-//        }
+            Assert.Throws<ArgumentException>(() => _provider.GetForecast(cityName, days));
+        }
 
-//        [Test]
-//        public void GetForecast_When_given_null_city_name_Then_throws_exception()
-//        {
-//            string cityName = null;
-//            int days = 7;
+        [Test]
+        public void GetForecast_When_given_null_city_name_Then_throws_exception()
+        {
+            string cityName = null;
+            int days = 7;
 
-//            Assert.Throws<ArgumentException>(() => _provider.GetForecast(cityName, days));
-//        }
+            Assert.Throws<ArgumentException>(() => _provider.GetForecast(cityName, days));
+        }
     }
 }

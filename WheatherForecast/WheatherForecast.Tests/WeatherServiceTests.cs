@@ -14,19 +14,6 @@ namespace WheatherForecast.Tests
     [TestFixture]
     class WeatherServiceTests
     {
-        private IWeatherService _weatherService;
-
-        [SetUp]
-        public void Init()
-        {
-           
-        }
-
-        [TearDown]
-        public void ShutDown()
-        {
-            
-        }
 
         [Test]
         public void GetCityNames_When_city_entities_Then_city_names_correctly_returned()
@@ -144,7 +131,13 @@ namespace WheatherForecast.Tests
         [Test]
         public void AddCity_When_adding_city_Then_Save_of_UnitOfWork_called()
         {
-            
+            var cityRepository = A.Fake<IRepository<CityEntity>>();
+            var uow = A.Fake<IUnitOfWork>();
+            A.CallTo(() => uow.Repository<CityEntity>()).Returns(cityRepository);
+
+            var weatherService = new WeatherService(uow);
+            weatherService.AddCity(new CityEntity {Id = 1, Name = "name"});
+            A.CallTo(() => uow.Save()).MustHaveHappened(Repeated.Exactly.Once);
         }
     }
 }

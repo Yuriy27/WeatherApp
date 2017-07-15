@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WheatherForecast.Models;
+using WheatherForecast.Models.OpenWeatherModels;
 using WheatherForecast.Repositories.Concrete;
 using WheatherForecast.Repositories.Interfaces;
 using WheatherForecast.Services;
@@ -19,11 +20,14 @@ namespace WheatherForecast.Controllers
 
         private IWeatherService _weatherService;
 
-        public WeatherController(IForecastProvider forecastProvider, IWeatherService weatherService)
+        private IForecastConverter _converter;
+
+        public WeatherController(IForecastProvider forecastProvider, IWeatherService weatherService, IForecastConverter converter)
         {
             _forecastProvider = forecastProvider;
             _weatherService = weatherService;
             _cities = _weatherService.GetCityNames().ToList();
+            _converter = converter;
         }
 
         // GET: Weather
@@ -46,7 +50,7 @@ namespace WheatherForecast.Controllers
             try
             {
                 ForecastObject forecast = _forecastProvider.GetForecast(city, days);
-                ForecastEntity entity = (ForecastEntity)forecast;
+                ForecastEntity entity = _converter.ConvertToEntity(forecast);//(ForecastEntity)forecast;
                 _weatherService.AddForecast(entity);
                 return View(forecast);
             }
