@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -10,6 +11,7 @@ namespace WheatherForecast.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         protected bool Equals(CityEntity other)

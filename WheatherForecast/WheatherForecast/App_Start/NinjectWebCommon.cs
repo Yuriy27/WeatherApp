@@ -1,3 +1,5 @@
+using System.Web.Http;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WheatherForecast.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WheatherForecast.App_Start.NinjectWebCommon), "Stop")]
 
@@ -62,6 +64,10 @@ namespace WheatherForecast.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            //WebApi
+            GlobalConfiguration.Configuration.DependencyResolver 
+                = new Ninject.Web.WebApi.NinjectDependencyResolver(kernel);
+            //MVC
             DependencyResolver.SetResolver(new Util.NinjectDependencyResolver(kernel));
         }        
     }

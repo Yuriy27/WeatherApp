@@ -16,11 +16,6 @@ namespace WheatherForecast.Services
     {
         private string _apiKey = "6ed509e8614438c14cac139dfa12a323";
 
-        public OpenWeatherMapProvider()
-        {
-            //_apiKey = System.Configuration.ConfigurationManager.AppSettings["AppKey"];
-        }
-
         public ForecastObject GetForecast(string city, int days)
         {
             if (city == null)
@@ -59,14 +54,11 @@ namespace WheatherForecast.Services
         //    var uri = $"http://api.openweathermap.org/data/2.5/forecast/daily?q={city}&units=metric&APPID={_apiKey}&cnt={days}";
         //    var httpClient = new HttpClient();
         //    var response = await httpClient.GetAsync(uri);
-        //    try
-        //    {
+
+
         //        response.EnsureSuccessStatusCode();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
+
+
 
         //    return null;
         //}
