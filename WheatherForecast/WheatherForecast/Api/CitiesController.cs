@@ -19,9 +19,9 @@ namespace WheatherForecast.Api
         }
 
         [HttpGet]
-        public IEnumerable<string> GetDefaultCities()
+        public IEnumerable<CityEntity> GetDefaultCities()
         {
-            return _weatherService.GetCityNames();
+            return _weatherService.GetCities();
         }
 
         [HttpPost]
@@ -43,8 +43,26 @@ namespace WheatherForecast.Api
         [HttpDelete]
         public HttpResponseMessage DeleteDefaultCity(int id)
         {
-            //if (_weatherService.)
+            if (_weatherService.GetCity(id) == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
             _weatherService.DeleteCity(id);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        public HttpResponseMessage UpdateDefaultCity([FromBody] CityEntity city)
+        {
+            var newCity = _weatherService.GetCity(city.Id);
+            if (newCity == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+            newCity.Name = city.Name;
+            _weatherService.UpdateCity(newCity);
+
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }

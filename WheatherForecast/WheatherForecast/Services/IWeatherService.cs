@@ -28,5 +28,7 @@ namespace WheatherForecast.Services
         IEnumerable<ForecastEntity> GetForecastsByCity(string city);
 
         IEnumerable<ForecastEntity> GetForecastsByDate(DateTime date);
+
+        CityEntity GetCity(int id);
     }
 }

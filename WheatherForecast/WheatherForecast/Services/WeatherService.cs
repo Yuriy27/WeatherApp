@@ -73,5 +73,10 @@ namespace WheatherForecast.Services
             return _uow.Repository<ForecastEntity>().GetAll()
                 .Where(f => f.Date.ToShortDateString().Equals(date.ToShortDateString()));
         }
+
+        public CityEntity GetCity(int id)
+        {
+            return _uow.Repository<CityEntity>().Get(id);
+        }
     }
 }
