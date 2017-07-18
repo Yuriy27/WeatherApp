@@ -32,7 +32,7 @@ namespace WheatherForecast.Api
         [HttpPost]
         public HttpResponseMessage AddDefaultCity([FromBody] CityEntity city)
         {
-            if (!ModelState.IsValid)
+            if (city == null || !ModelState.IsValid)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
@@ -64,6 +64,10 @@ namespace WheatherForecast.Api
         [HttpPut]
         public HttpResponseMessage UpdateDefaultCity([FromBody] CityEntity city)
         {
+            if (city == null || !ModelState.IsValid)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
             if (!_forecastProvider.SuccessPingCity(city.Name))
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, string.Format(InvalidCity, city.Name));
