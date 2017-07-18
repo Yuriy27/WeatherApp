@@ -49,6 +49,19 @@ namespace WheatherForecast.Services
             return forecast;
         }
 
+        public bool SuccessPingCity(string city)
+        {
+            try
+            {
+                GetForecast(city, 1);
+            }
+            catch (WebException)
+            {
+                return false;
+            }
+            return true;
+        }
+
         //public async Task<ForecastObject> GetForecast(string city, int days)
         //{
         //    var uri = $"http://api.openweathermap.org/data/2.5/forecast/daily?q={city}&units=metric&APPID={_apiKey}&cnt={days}";

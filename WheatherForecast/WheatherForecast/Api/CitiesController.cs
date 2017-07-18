@@ -11,11 +11,16 @@ namespace WheatherForecast.Api
 {
     public class CitiesController : ApiController
     {
+        private const string InvalidCity = "Our service doesn't provide forecast for city '{0}'";
+
         private IWeatherService _weatherService;
 
-        public CitiesController(IWeatherService weatherService)
+        private IForecastProvider _forecastProvider;
+
+        public CitiesController(IWeatherService weatherService, IForecastProvider forecastProvider)
         {
             _weatherService = weatherService;
+            _forecastProvider = forecastProvider;
         }
 
         [HttpGet]
@@ -33,7 +38,11 @@ namespace WheatherForecast.Api
             }
             if (_weatherService.GetCitiesByName(city.Name).Count() != 0)
             {
-                return new HttpResponseMessage(HttpStatusCode.Conflict);
+                return Request.CreateResponse(HttpStatusCode.Conflict, $"City '{city.Name}' already exist");
+            }
+            if (!_forecastProvider.SuccessPingCity(city.Name))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, string.Format(InvalidCity, city.Name));
             }
             _weatherService.AddCity(city);
 
@@ -55,6 +64,10 @@ namespace WheatherForecast.Api
         [HttpPut]
         public HttpResponseMessage UpdateDefaultCity([FromBody] CityEntity city)
         {
+            if (!_forecastProvider.SuccessPingCity(city.Name))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, string.Format(InvalidCity, city.Name));
+            }
             var newCity = _weatherService.GetCity(city.Id);
             if (newCity == null)
             {

@@ -10,6 +10,8 @@ namespace WheatherForecast.App_Start
     {
         public static void Register(HttpConfiguration configuration)
         {
+            configuration.MapHttpAttributeRoutes();
+
             configuration.Routes.MapHttpRoute("DefaultWebApi", "api/v1/{controller}/{id}",
                 new {id = RouteParameter.Optional});
         }

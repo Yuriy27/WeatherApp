@@ -12,5 +12,7 @@ namespace WheatherForecast.Services
     public interface IForecastProvider
     {
         ForecastObject GetForecast(string city, int days);
+
+        bool SuccessPingCity(string city);
     }
 }
