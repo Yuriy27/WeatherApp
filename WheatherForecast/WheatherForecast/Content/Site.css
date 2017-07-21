@@ -95,11 +95,11 @@ textarea {
     color: white;
 }
 
-    .nav-link:hover {
-        background: #00b36b;
-        color: white;
-        text-decoration: none;
-    }
+.nav-link:hover {
+    background: #00b36b;
+    color: white;
+    text-decoration: none;
+}
 
 
 /*Styles for footer*/
@@ -113,16 +113,16 @@ textarea {
     width: 100%;
 }
 
-    .footer a {
-        color: white;
-        font-weight: bold;
-    }
+.footer a {
+    color: white;
+    font-weight: bold;
+}
 
-        .footer a:hover {
-            color: aliceblue;
-            text-decoration: none;
-            font-weight: bold;
-        }
+.footer a:hover {
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: bold;
+}
 
 .company-info {
     
@@ -153,25 +153,25 @@ textarea {
     color: #595959;
 }
 
-    .weather-title:after {
-        display: inline-block;
-        margin: 0 0 8px 20px;
-        height: 3px;
-        content: " ";
-        text-shadow: none;
-        background-color: #999;
-        width: 140px;
-    }
+.weather-title:after {
+    display: inline-block;
+    margin: 0 0 8px 20px;
+    height: 3px;
+    content: " ";
+    text-shadow: none;
+    background-color: #999;
+    width: 140px;
+}
 
-    .weather-title:before {
-        display: inline-block;
-        margin: 0 20px 8px 0;
-        height: 3px;
-        content: " ";
-        text-shadow: none;
-        background-color: #999;
-        width: 140px;
-    }
+.weather-title:before {
+    display: inline-block;
+    margin: 0 20px 8px 0;
+    height: 3px;
+    content: " ";
+    text-shadow: none;
+    background-color: #999;
+    width: 140px;
+}
 
 .forecast-forms {
     display: flex;
@@ -263,25 +263,25 @@ span.quoted {
     font-style: italic;
 }
 
-    span.quoted:before {
-        content: "“";
-        font-size: 40px;
-        color: #999;
-        line-height: 0;
-        display: inline-block;
-        margin: 0 6px 0 0;
-    }
+span.quoted:before {
+    content: "“";
+    font-size: 40px;
+    color: #999;
+    line-height: 0;
+    display: inline-block;
+    margin: 0 6px 0 0;
+}
 
-    span.quoted:after {
-        content: " ”";
-        font-size: 40px;
-        color: #999;
-        line-height: 0;
-        display: inline-block;
-        margin: 0 0 0 4px;
-    } 
+span.quoted:after {
+    content: " ”";
+    font-size: 40px;
+    color: #999;
+    line-height: 0;
+    display: inline-block;
+    margin: 0 0 0 4px;
+} 
 
-.box p{
+.box p {
     text-align:center;
     position:relative;
     top:80px;
@@ -294,12 +294,11 @@ span.quoted {
     margin-top: 0;
 }
 
-.box-effect
-{
+.box-effect {
     position: relative;
 }
-.box-effect:before, .box-effect:after
-{
+
+.box-effect:before, .box-effect:after {
     z-index: -1;
     position: absolute;
     content: "";
@@ -312,8 +311,8 @@ span.quoted {
     box-shadow: 0 15px 10px #777;
     transform: rotate(-3deg);
 }
-.box-effect:after
-{
+
+.box-effect:after {
     transform: rotate(3deg);
     right: 10px;
     left: auto;
