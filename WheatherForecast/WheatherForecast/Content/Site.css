@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
-    
+    padding-bottom: 0;
+    height: 100%;
 }
 
 /* Set padding to keep content from hitting the edges background-color: #e6f2ff;*/
@@ -22,6 +22,12 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .forecast-table {
@@ -59,8 +65,9 @@ textarea {
     justify-content: space-between;
     position: absolute;
     top: 0;
-    background: lightgreen;
+    background: #00cc7a;
     color: white;
+    font-weight: bold;
 }
 
 .header-logo {
@@ -89,7 +96,7 @@ textarea {
 }
 
     .nav-link:hover {
-        background: #00b300;
+        background: #00b36b;
         color: white;
         text-decoration: none;
     }
@@ -97,9 +104,25 @@ textarea {
 
 /*Styles for footer*/
 .footer {
+    background: #b3b3b3;
     display: flex;
     justify-content: space-around;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    width: 100%;
 }
+
+    .footer a {
+        color: white;
+        font-weight: bold;
+    }
+
+        .footer a:hover {
+            color: aliceblue;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
 .company-info {
     
@@ -114,11 +137,41 @@ textarea {
 .main-content {
     display: flex;
     justify-content: center;
+    height: 100%;
 }
 
 .weather-content {
     width: 90%;
 }
+
+.weather-title {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+    text-align: center;
+    color: #595959;
+}
+
+    .weather-title:after {
+        display: inline-block;
+        margin: 0 0 8px 20px;
+        height: 3px;
+        content: " ";
+        text-shadow: none;
+        background-color: #999;
+        width: 140px;
+    }
+
+    .weather-title:before {
+        display: inline-block;
+        margin: 0 20px 8px 0;
+        height: 3px;
+        content: " ";
+        text-shadow: none;
+        background-color: #999;
+        width: 140px;
+    }
 
 .forecast-forms {
     display: flex;
@@ -200,4 +253,68 @@ textarea {
 
 .history-table {
     
+}
+
+span.quoted {
+    font-family: Georgia;
+    font-size: 16px;
+    display: block;
+    margin: 14px 0 0 0;
+    font-style: italic;
+}
+
+    span.quoted:before {
+        content: "“";
+        font-size: 40px;
+        color: #999;
+        line-height: 0;
+        display: inline-block;
+        margin: 0 6px 0 0;
+    }
+
+    span.quoted:after {
+        content: " ”";
+        font-size: 40px;
+        color: #999;
+        line-height: 0;
+        display: inline-block;
+        margin: 0 0 0 4px;
+    } 
+
+.box p{
+    text-align:center;
+    position:relative;
+    top:80px;
+}
+.box {
+    width:70%;
+    height:150px;
+    background:#FFF;
+    margin: 10px auto;
+    margin-top: 0;
+}
+
+.box-effect
+{
+    position: relative;
+}
+.box-effect:before, .box-effect:after
+{
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 15px;
+    left: 10px;
+    width: 50%;
+    top: 80%;
+    max-width:300px;
+    background: #777;
+    box-shadow: 0 15px 10px #777;
+    transform: rotate(-3deg);
+}
+.box-effect:after
+{
+    transform: rotate(3deg);
+    right: 10px;
+    left: auto;
 }

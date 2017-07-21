@@ -26,7 +26,7 @@
 }
 <div class="weather-content">
     <div>
-        <h2 align="center">Smart Weather</h2>
+        <h2 align="center" class="weather-title">Smart Weather</h2>
     </div>
     <div class="forecast-forms">
         <div >
@@ -40,16 +40,16 @@
                     </select>
 
                     @DrawDayNumbers()
-                </div>           
+                </div>
             </form>
         </div>
         <div >
             <form action="/Weather/Index" method="post" class="forecast-form">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="city" placeholder="Enter city name.." value="@DrawCityName()" />
+                    <input type="text" class="form-control" name="city" placeholder="Enter city name.." value="@DrawCityName()"/>
 
                     @DrawDayNumbers()
-                </div>            
+                </div>
             </form>
         </div>
         @*<div class="col-md-3"> 
@@ -58,14 +58,17 @@
             <img src="~/Images/sun_behind_cloud.png" class="logo" />
         </div>*@
     </div>
-    <div>
-        
-    </div>
     @if (Model != null)
     {
-        @Html.Partial("ForecastView", Model);
+        @Html.Partial("ForecastView", Model)
+        ;
     }
     <h4 class="error-message">@(ViewBag.ErrorMessage ?? "")</h4>
+    <hr/>
+    <div class="box box-effect">
+        <p align="center"><span class="quoted">Wherever you go, whatever the weather, always bring your own sunshine.</span>
+        </p>
+    </div>
 </div>
 
 
