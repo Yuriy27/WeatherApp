@@ -42,16 +42,20 @@
             </ul>
         </div>
     </div>
-    <div class="container body-content">
+    @*<div class="container body-content">
         @RenderBody()
         <hr/>
-        @*<footer>
+        <footer>
             <div class="footer">
                 
             </div>
             <p>&copy; @DateTime.Now.Year - ASP.NET MVC Application for BSA 2017</p>
-        </footer>*@
+        </footer>
+    </div>*@
+    <div class="main-content">
+        @RenderBody()
     </div>
+    <hr/>
     <footer class="footer">
         <div class="company-info">
             <p>Company info:</p>
