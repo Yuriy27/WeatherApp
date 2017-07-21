@@ -47,10 +47,49 @@ textarea {
     height: 20px; 
 }
 
-.settings-icon {
-
-}
-
 .error-message {
     color: red;
 }
+
+
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    background: lightgreen;
+    color: white;
+}
+
+.header-logo {
+    padding-top: 10px;
+    padding-left: 10px;
+    
+}
+
+.logo-img {
+    width: 30px;
+    height: 30px;
+}
+
+.site-navbar {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    display: flex;
+}
+
+.nav-link {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    color: white;
+}
+
+    .nav-link:hover {
+        background: #00b300;
+        color: white;
+        text-decoration: none;
+    }
