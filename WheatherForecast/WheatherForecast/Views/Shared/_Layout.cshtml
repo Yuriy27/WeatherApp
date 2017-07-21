@@ -8,7 +8,8 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-@*<div class="navbar navbar-default navbar-fixed-top">
+<div>
+    @*<div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -27,33 +28,47 @@
             </div>
         </div>
     </div>*@
-<div class="header">
-    <div class="header-logo">
-        <img class="logo-img" src="~/Images/sun_behind_cloud.png"/>
-        <span>Wheather App</span>
+    <div class="header">
+        <div class="header-logo">
+            <img class="logo-img" src="~/Images/sun_behind_cloud.png"/>
+            <span>Wheather App</span>
+        </div>
+        <div>
+            <ul class="site-navbar">
+                <li><a class="nav-link" href="/weather">Weather</a></li>
+                <li><a class="nav-link" href="/settings">Settings</a></li>
+                <li><a class="nav-link" href="/history">History</a></li>
+                @*<li>@Html.ActionLink("History", "Index", "History", new {@class="nav-link"})</li>*@
+            </ul>
+        </div>
     </div>
-    <div>
-        <ul class="site-navbar">
-            <li><a class="nav-link" href="/weather">Weather</a></li>
-            <li><a class="nav-link" href="/settings">Settings</a></li>
-            <li><a class="nav-link" href="/history">History</a></li>
-            @*<li>@Html.ActionLink("History", "Index", "History", new {@class="nav-link"})</li>*@
-        </ul>
-    </div>
-</div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
+        <hr/>
+        @*<footer>
             <div class="footer">
                 
             </div>
             <p>&copy; @DateTime.Now.Year - ASP.NET MVC Application for BSA 2017</p>
-        </footer>
+        </footer>*@
     </div>
+    <footer class="footer">
+        <div class="company-info">
+            <p>Company info:</p>
+            <p>SmartWeather corp</p>
+            <p>Ukraine</p>
+        </div>
+        <div class="contact-us">
+            <p>Contact us:</p>
+            <p>+380982281488</p>
+            <p>+380633331483</p>
+            <a href="mailto:yura27kuchevskiy@gmail.com">e-mail</a>
+        </div>
+    </footer>
+</div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>
