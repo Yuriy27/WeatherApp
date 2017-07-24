@@ -1,6 +1,11 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 0;
+    padding-bottom: 150px;
+    min-height: 100%;
+    position: relative;
+}
+
+html {
     height: 100%;
 }
 
@@ -71,14 +76,14 @@ textarea {
 }
 
 .header-logo {
-    padding-top: 10px;
+    padding-top: 0px;
     padding-left: 10px;
     
 }
 
 .logo-img {
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
 }
 
 .site-navbar {
@@ -110,7 +115,10 @@ textarea {
     padding: 20px;
     color: white;
     font-weight: bold;
+    height: 150px;
     width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 .footer a {
