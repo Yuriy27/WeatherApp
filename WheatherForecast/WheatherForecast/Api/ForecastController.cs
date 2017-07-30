@@ -41,7 +41,8 @@ namespace WheatherForecast.Api
             try
             {
                 var forecast = _forecastProvider.GetForecast(city, days);
-                _weatherService.AddForecast(_forecastConverter.ConvertToEntity(forecast));
+                var forecastEntity = _forecastConverter.ConvertToEntity(forecast);
+                _weatherService.AddForecast(forecastEntity);
                 return Request.CreateResponse<ForecastObject>(HttpStatusCode.OK, forecast);
             }
             catch (ArgumentException)
