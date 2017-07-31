@@ -9,26 +9,26 @@ namespace WheatherForecast.Services
 {
     public interface IWeatherService
     {
-        IEnumerable<CityEntity> GetCities();
+        Task<IEnumerable<CityEntity>> GetCitiesAsync();
 
-        IEnumerable<CityEntity> GetCitiesByName(string name);
-
-        IEnumerable<ForecastEntity> GetForeacsts();
-
-        IEnumerable<string> GetCityNames();
-
-        void AddCity(CityEntity city);
-
-        void DeleteCity(int id);
-
-        void UpdateCity(CityEntity city);
-
-        void AddForecast(ForecastEntity forecast);
-
-        IEnumerable<ForecastEntity> GetForecastsByCity(string city);
-
-        IEnumerable<ForecastEntity> GetForecastsByDate(DateTime date);
-
-        CityEntity GetCity(int id);
+        Task<IEnumerable<CityEntity>> GetCitiesByNameAsync(string name);
+        
+        Task<IEnumerable<ForecastEntity>> GetForeacstsAsync();
+        
+        Task<IEnumerable<string>> GetCityNamesAsync();
+        
+        Task AddCityAsync(CityEntity city);
+        
+        Task DeleteCityAsync(int id);
+        
+        Task UpdateCityAsync(CityEntity city);
+        
+        Task AddForecastAsync(ForecastEntity forecast);
+        
+        Task<IEnumerable<ForecastEntity>> GetForecastsByCityAsync(string city);
+        
+        Task<IEnumerable<ForecastEntity>> GetForecastsByDateAsync(DateTime date);
+        
+        Task<CityEntity> GetCityAsync(int id);
     }
 }

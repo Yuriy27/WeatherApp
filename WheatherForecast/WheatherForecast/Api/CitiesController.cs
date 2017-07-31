@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using WheatherForecast.Models;
@@ -14,9 +15,9 @@ namespace WheatherForecast.Api
     {
         private const string InvalidCity = "Our service doesn't provide forecast for city '{0}'";
 
-        private IWeatherService _weatherService;
+        private readonly IWeatherService _weatherService;
 
-        private IForecastProvider _forecastProvider;
+        private readonly IForecastProvider _forecastProvider;
 
         public CitiesController(IWeatherService weatherService, IForecastProvider forecastProvider)
         {
@@ -25,61 +26,61 @@ namespace WheatherForecast.Api
         }
 
         [HttpGet]
-        public IEnumerable<CityEntity> GetDefaultCities()
+        public async Task<IEnumerable<CityEntity>> GetDefaultCities()
         {
-            return _weatherService.GetCities();
+            return await _weatherService.GetCitiesAsync();
         }
 
         [HttpPost]
-        public HttpResponseMessage AddDefaultCity([FromBody] CityEntity city)
+        public async Task<HttpResponseMessage> AddDefaultCity([FromBody] CityEntity city)
         {
             if (city == null || !ModelState.IsValid)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
-            if (_weatherService.GetCitiesByName(city.Name).Count() != 0)
+            if ((await _weatherService.GetCitiesByNameAsync(city.Name)).Count() != 0)
             {
                 return Request.CreateResponse(HttpStatusCode.Conflict, $"City '{city.Name}' already exist");
             }
-            if (!_forecastProvider.SuccessPingCity(city.Name))
+            if (!await _forecastProvider.SuccessPingCityAsync(city.Name))
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, string.Format(InvalidCity, city.Name));
             }
-            _weatherService.AddCity(city);
+            await _weatherService.AddCityAsync(city);
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         [HttpDelete]
-        public HttpResponseMessage DeleteDefaultCity(int id)
+        public async Task<HttpResponseMessage> DeleteDefaultCity(int id)
         {
-            if (_weatherService.GetCity(id) == null)
+            if (await _weatherService.GetCityAsync(id) == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
-            _weatherService.DeleteCity(id);
+            await _weatherService.DeleteCityAsync(id);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateDefaultCity([FromBody] CityEntity city)
+        public async Task<HttpResponseMessage> UpdateDefaultCity([FromBody] CityEntity city)
         {
             if (city == null || !ModelState.IsValid)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
-            if (!_forecastProvider.SuccessPingCity(city.Name))
+            if (!await _forecastProvider.SuccessPingCityAsync(city.Name))
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, string.Format(InvalidCity, city.Name));
             }
-            var newCity = _weatherService.GetCity(city.Id);
+            var newCity = await _weatherService.GetCityAsync(city.Id);
             if (newCity == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
             newCity.Name = city.Name;
-            _weatherService.UpdateCity(newCity);
+            await _weatherService.UpdateCityAsync(newCity);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }

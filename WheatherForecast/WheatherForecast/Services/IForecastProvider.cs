@@ -11,8 +11,8 @@ namespace WheatherForecast.Services
 {
     public interface IForecastProvider
     {
-        ForecastObject GetForecast(string city, int days);
+        Task<ForecastObject> GetForecastAsync(string city, int days);
 
-        bool SuccessPingCity(string city);
+        Task<bool> SuccessPingCityAsync(string city);
     }
 }

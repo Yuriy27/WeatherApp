@@ -34,7 +34,7 @@ namespace WheatherForecast.Tests
             var invalidCityName = "K";
             var days = 1;
 
-            Assert.Throws<WebException>(() => _provider.GetForecast(invalidCityName, days));
+            Assert.ThrowsAsync<WebException>(() => _provider.GetForecastAsync(invalidCityName, days));
         }
 
         [Test]
@@ -44,10 +44,10 @@ namespace WheatherForecast.Tests
         {
             var cityName = "Odessa";
 
-            var result = _provider.GetForecast(cityName, days);
+            var result = _provider.GetForecastAsync(cityName, days);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.City.Name, Is.EqualTo(cityName));
+            Assert.That(result.Result, Is.Not.Null);
+            Assert.That(result.Result.City.Name, Is.EqualTo(cityName));
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace WheatherForecast.Tests
         {
             var cityName = "Kharkiv";
 
-            Assert.Throws<ArgumentException>(() => _provider.GetForecast(cityName, days));
+            Assert.ThrowsAsync<ArgumentException>(() => _provider.GetForecastAsync(cityName, days));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace WheatherForecast.Tests
             string cityName = null;
             int days = 7;
 
-            Assert.Throws<ArgumentException>(() => _provider.GetForecast(cityName, days));
+            Assert.ThrowsAsync<ArgumentException>(() => _provider.GetForecastAsync(cityName, days));
         }
     }
 }

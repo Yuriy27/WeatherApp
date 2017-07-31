@@ -50,11 +50,11 @@ namespace WheatherForecast.Tests
 
             using (var controller = new WeatherController(forecastProvider, weatherService, forecastConverter))
             {
-                var result = controller.Index(city, days) as ViewResult;
+                var result = controller.Index(city, days).Result as ViewResult;
 
                 Assert.NotNull(result);
-                A.CallTo(() => weatherService.AddForecast(A<ForecastEntity>._)).MustHaveHappened(Repeated.Never);
-                A.CallTo(() => forecastProvider.GetForecast(city, days)).MustHaveHappened(Repeated.Never);
+                A.CallTo(() => weatherService.AddForecastAsync(A<ForecastEntity>._)).MustHaveHappened(Repeated.Never);
+                A.CallTo(() => forecastProvider.GetForecastAsync(city, days)).MustHaveHappened(Repeated.Never);
             }
         }
 
@@ -68,7 +68,7 @@ namespace WheatherForecast.Tests
             string city = "Kiev";
             int days = 1;
 
-            A.CallTo(() => forecastProvider.GetForecast(A<string>._, A<int>._)).Returns(new ForecastObject
+            A.CallTo(() => forecastProvider.GetForecastAsync(A<string>._, A<int>._)).Returns(new ForecastObject
             {
                 City = new City()
                 {
@@ -83,11 +83,11 @@ namespace WheatherForecast.Tests
             
             using (var controller = new WeatherController(forecastProvider, weatherService, forecastConverter))
             {
-                var result = controller.Index(city, days) as ViewResult;
+                var result = controller.Index(city, days).Result as ViewResult;
                 var model = result.Model;
 
-                A.CallTo(() => weatherService.AddForecast(A<ForecastEntity>._)).MustHaveHappened(Repeated.Exactly.Once);
-                A.CallTo(() => forecastProvider.GetForecast(city, days)).MustHaveHappened(Repeated.Exactly.Once);
+                A.CallTo(() => weatherService.AddForecastAsync(A<ForecastEntity>._)).MustHaveHappened(Repeated.Exactly.Once);
+                A.CallTo(() => forecastProvider.GetForecastAsync(city, days)).MustHaveHappened(Repeated.Exactly.Once);
                 Assert.NotNull(result);
                 Assert.NotNull(model);
             }

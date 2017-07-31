@@ -16,7 +16,7 @@ namespace WheatherForecast.Services
     {
         private string _apiKey = "6ed509e8614438c14cac139dfa12a323";
 
-        public ForecastObject GetForecast(string city, int days)
+        public async Task<ForecastObject> GetForecastAsync(string city, int days)
         {
             if (city == null)
             {
@@ -27,33 +27,20 @@ namespace WheatherForecast.Services
                 throw new ArgumentException("Param days should be in range 1 to 17");
             }
             var uri = $"http://api.openweathermap.org/data/2.5/forecast/daily?q={city}&units=metric&APPID={_apiKey}&cnt={days}";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            HttpWebResponse response;
-            try
+            using (var client = new HttpClient())
             {
-                response = (HttpWebResponse)request.GetResponse();
+                var response = await client.GetAsync(uri);
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                return await Task.Run(() => JsonConvert.DeserializeObject<ForecastObject>(json));
             }
-            catch (WebException ex)
-            {
-                throw;
-            }
-            ForecastObject forecast;
-            using (var reader = new StreamReader(response.GetResponseStream()))
-            {
-                string json = reader.ReadToEnd();
-                forecast = JsonConvert.DeserializeObject<ForecastObject>(json);
-            }
-
-            return forecast;
         }
 
-        public bool SuccessPingCity(string city)
+        public async Task<bool> SuccessPingCityAsync(string city)
         {
             try
             {
-                GetForecast(city, 1);
+                await GetForecastAsync(city, 1);
             }
             catch (WebException)
             {
@@ -61,19 +48,5 @@ namespace WheatherForecast.Services
             }
             return true;
         }
-
-        //public async Task<ForecastObject> GetForecast(string city, int days)
-        //{
-        //    var uri = $"http://api.openweathermap.org/data/2.5/forecast/daily?q={city}&units=metric&APPID={_apiKey}&cnt={days}";
-        //    var httpClient = new HttpClient();
-        //    var response = await httpClient.GetAsync(uri);
-
-
-        //        response.EnsureSuccessStatusCode();
-
-
-
-        //    return null;
-        //}
     }
 }

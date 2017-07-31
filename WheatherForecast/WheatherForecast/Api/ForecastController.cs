@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using WheatherForecast.Models;
 using WheatherForecast.Models.OpenWeatherModels;
@@ -12,11 +13,11 @@ namespace WheatherForecast.Api
 {
     public class ForecastController : ApiController
     {
-        private IWeatherService _weatherService;
+        private readonly IWeatherService _weatherService;
 
-        private IForecastProvider _forecastProvider;
+        private readonly IForecastProvider _forecastProvider;
 
-        private IForecastConverter _forecastConverter;
+        private readonly IForecastConverter _forecastConverter;
 
         private const string InvalidCity = "Our service doesn't provide forecast for city '{0}'";
 
@@ -32,7 +33,7 @@ namespace WheatherForecast.Api
 
         [HttpGet]
         [Route("api/v1/forecast/{city:alpha}/{days:int=1}")]
-        public HttpResponseMessage ShowForecast(string city, int days)
+        public async Task<HttpResponseMessage> ShowForecast(string city, int days)
         {
             if (string.IsNullOrEmpty(city))
             {
@@ -40,9 +41,10 @@ namespace WheatherForecast.Api
             }
             try
             {
-                var forecast = _forecastProvider.GetForecast(city, days);
+                var forecast = await _forecastProvider.GetForecastAsync(city, days);
                 var forecastEntity = _forecastConverter.ConvertToEntity(forecast);
-                _weatherService.AddForecast(forecastEntity);
+                await _weatherService.AddForecastAsync(forecastEntity);
+                
                 return Request.CreateResponse<ForecastObject>(HttpStatusCode.OK, forecast);
             }
             catch (ArgumentException)

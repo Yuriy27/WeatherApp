@@ -32,9 +32,9 @@ namespace WheatherForecast.Tests
             var weatherService = new WeatherService(uow);
 
             var expectedResult = new List<string> {"city 1", "city 2", "city 3"};
-            var gainedResult = weatherService.GetCityNames();
+            var gainedResult = weatherService.GetCityNamesAsync();
 
-            CollectionAssert.AreEqual(expectedResult, gainedResult);
+            CollectionAssert.AreEqual(expectedResult, gainedResult.Result);
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace WheatherForecast.Tests
                 new CityEntity {Id = 4, Name = "city 2"},
                 new CityEntity {Id = 5, Name = "city 2"}
             };
-            var gainedResult = weatherService.GetCitiesByName(searchCity);
+            var gainedResult = weatherService.GetCitiesByNameAsync(searchCity).Result;
 
             CollectionAssert.AreEqual(expectedResult, gainedResult);
         }
@@ -94,7 +94,7 @@ namespace WheatherForecast.Tests
                 new ForecastEntity {Id = 5, City = "city 3"},
                 new ForecastEntity {Id = 6, City = "city 3"}
             };
-            var gainedResult = weatherService.GetForecastsByCity(searchCity);
+            var gainedResult = weatherService.GetForecastsByCityAsync(searchCity).Result;
 
             CollectionAssert.AreEqual(expectedResult, gainedResult);
         }
@@ -123,20 +123,20 @@ namespace WheatherForecast.Tests
             {
                 new ForecastEntity {Id = 4, Date = new DateTime(2017, 7, 10)}
             };
-            var gainedResult = weatherService.GetForecastsByDate(searchDate);
+            var gainedResult = weatherService.GetForecastsByDateAsync(searchDate).Result;
 
             CollectionAssert.AreEqual(expectedResult, gainedResult);
         }
 
         [Test]
-        public void AddCity_When_adding_city_Then_Save_of_UnitOfWork_called()
+        public async Task AddCity_When_adding_city_Then_Save_of_UnitOfWork_called()
         {
             var cityRepository = A.Fake<IRepository<CityEntity>>();
             var uow = A.Fake<IUnitOfWork>();
             A.CallTo(() => uow.Repository<CityEntity>()).Returns(cityRepository);
 
             var weatherService = new WeatherService(uow);
-            weatherService.AddCity(new CityEntity {Id = 1, Name = "name"});
+            await weatherService.AddCityAsync(new CityEntity { Id = 1, Name = "name" });
             A.CallTo(() => uow.Save()).MustHaveHappened(Repeated.Exactly.Once);
         }
     }

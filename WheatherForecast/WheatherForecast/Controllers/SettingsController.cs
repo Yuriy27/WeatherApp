@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WheatherForecast.Models;
@@ -24,59 +25,55 @@ namespace WheatherForecast.Controllers
         }
 
         // GET: Settings
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var cities = _weatherService.GetCities();
+            var cities = await _weatherService.GetCitiesAsync();
             return View(cities);
         }
 
         [HttpPost]
         [ActionName("Delete")]
-        public ActionResult DeleteCity(int id)
+        public async Task<ActionResult> DeleteCity(int id)
         {
-            _weatherService.DeleteCity(id);
+            await _weatherService.DeleteCityAsync(id);
 
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         [ActionName("Add")]
-        public ActionResult AddCity(CityEntity city)
+        public async Task<ActionResult> AddCity(CityEntity city)
         {
             if (string.IsNullOrEmpty(city?.Name))
             {
                 return RedirectToAction("Index");
             }
             var view = "~/Views/Settings/Index.cshtml";
-            var cities = _weatherService.GetCities();
-            if (_weatherService.GetCitiesByName(city.Name).Count() != 0)
+            var cities = await _weatherService.GetCitiesAsync();
+            if ((await _weatherService.GetCitiesByNameAsync(city.Name)).Count() != 0)
             {
                 ViewBag.ErrorMessage = $"City '{city.Name}' had already added in default cities.";
                 return View(view, cities);
             }
-            try
-            {
-                var forecast = _forecastProvider.GetForecast(city.Name, 1);
-            }
-            catch (Exception ex)
+            if (!await _forecastProvider.SuccessPingCityAsync(city.Name))
             {
                 ViewBag.ErrorMessage = $"SmartWeather service doesn't provide forecast for city '{city.Name}'";
                 return View(view, cities);
-            }
-            _weatherService.AddCity(city);
+            } 
+            await _weatherService.AddCityAsync(city);
 
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         [ActionName("Update")]
-        public ActionResult UpdateCity(CityEntity city)
+        public async Task<ActionResult> UpdateCity(CityEntity city)
         {
             if (string.IsNullOrEmpty(city?.Name))
             {
                 return RedirectToAction("Index");
             }
-            _weatherService.UpdateCity(city);
+            await _weatherService.UpdateCityAsync(city);
 
             return RedirectToAction("Index");
         }

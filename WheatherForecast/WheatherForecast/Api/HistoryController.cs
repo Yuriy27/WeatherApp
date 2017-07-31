@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using WheatherForecast.Models;
 using WheatherForecast.Services;
@@ -12,7 +13,7 @@ namespace WheatherForecast.Api
 {
     public class HistoryController : ApiController
     {
-        private IWeatherService _weatherService;
+        private readonly IWeatherService _weatherService;
 
         public HistoryController(IWeatherService weatherService)
         {
@@ -20,9 +21,9 @@ namespace WheatherForecast.Api
         }
 
         [HttpGet]
-        public IEnumerable<ForecastEntity> GetHistory()
+        public async Task<IEnumerable<ForecastEntity>> GetHistory()
         {
-            return _weatherService.GetForeacsts();
+            return (await _weatherService.GetForeacstsAsync()).Reverse();
         }
     }
 }
